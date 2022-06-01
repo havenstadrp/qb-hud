@@ -658,9 +658,9 @@ const moneyHud = Vue.createApp({
     // https://www.w3schools.com/tags/ref_language_codes.asp LANGUAGE CODES
     // https://www.w3schools.com/tags/ref_country_codes.asp COUNTRY CODES
     formatMoney(value) {
-      const formatter = new Intl.NumberFormat("en-US", {
+      const formatter = new Intl.NumberFormat("BE-nl", {
         style: "currency",
-        currency: "USD",
+        currency: "EUR",
         minimumFractionDigits: 0,
       });
       return formatter.format(value);

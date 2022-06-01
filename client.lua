@@ -877,20 +877,20 @@ RegisterNetEvent('hud:client:ShowAccounts', function(type, amount)
         SendNUIMessage({
             action = 'show',
             type = 'cash',
-            cash = amount
+            cash = format_int(amount)
         })
     else
         SendNUIMessage({
             action = 'show',
             type = 'bank',
-            bank = amount
+            bank = format_int(amount)
         })
     end
 end)
 
 RegisterNetEvent('hud:client:OnMoneyChange', function(type, amount, isMinus)
-    cashAmount = PlayerData.money['cash']
-    bankAmount = PlayerData.money['bank']
+    cashAmount = format_int(PlayerData.money['cash'])
+    bankAmount = format_int(PlayerData.money['bank'])
     SendNUIMessage({
         action = 'updatemoney',
         cash = cashAmount,
@@ -1157,3 +1157,21 @@ CreateThread(function()
 		    lastHeading = heading
 	    end
 end)
+
+-- function format_int(number)
+
+--     local minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
+
+--     -- reverse the int-string and append a comma to all blocks of 3 digits
+--     print(int)
+--     int = int:reverse():gsub("(%d%d%d)", "%1 ")
+
+--     -- reverse the int-string back remove an optional comma and put the 
+--     -- optional minus and fractional part back
+--     return minus .. int:reverse():gsub("^,", "") .. fraction
+-- end
+
+
+function format_int(n)
+    return tostring(math.floor(n)):reverse():gsub("(%d%d%d)","%1 "):gsub(",(%-?)$","%1"):reverse()
+end
